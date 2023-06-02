@@ -1,0 +1,16 @@
+<h1><%= @list.name %></h1>
+<h2>Movies:</h2>
+<ul>
+  <% @list.movies.each do |movie| %>
+  <li><%= movie.title %></li>
+  <% end  %>
+</ul>
+<h2>Add Movie:</h2>
+<%= form_with(model: [@list, @list.bookmarks.build], url: list_bookmarks_path(@list)) do |form| %>
+  <%= form.hidden_field :list_id, value: @list.id %>
+  <%= form.collection_select(:movie_id, Movie.all, :id, :title) %>
+  <%= form.text_field :comment, placeholder: 'Comment' %>
+  <%= form.submit 'Bookmark' %>
+<% end %>
+<ul>
+<%= render partial: 'formdeletebookmark', locals: { list: @list } %>

@@ -1,0 +1,11 @@
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <% if bookmark.movie.present? %>
+        <%= bookmark.movie.title %>
+      <% else %>
+        'Movie not found'
+      <% end %>
+      <%= link_to 'Remove Bookmark', list_bookmark_path(@list, bookmark.list_id), method: :delete, data: { confirm: 'Are you sure ?'} %>
+    </li>
+  <% end  %>
+</ul>
