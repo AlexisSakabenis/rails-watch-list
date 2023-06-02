@@ -4,3 +4,21 @@
   <li><%= link_to list.name %></li>
   <% end  %>
 </ul>
+<p style="color: green"><%= notice %></p>
+
+<h1>Articles</h1>
+<%= link_to "New article", new_article_path %>
+
+<div id="articles">
+  <% @articles.each do |article| %>
+    <div>v
+      <h2><%= article.title %></h2>
+      <% article.photos.each do |photo| %>
+        <%= cl_image_tag photo.key, width: 400, height: 300, crop: :fill %>
+      <% end %>
+      <p>
+        <%= link_to "Show this article", article %>
+      </p>
+    </div>
+  <% end %>
+</div>
