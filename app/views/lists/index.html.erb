@@ -1,24 +1,19 @@
 <h1>My Lists</h1>
-<ul>
-  <% @lists.each do |list|  %>
-  <li><%= link_to list.name %></li>
-  <% end  %>
-</ul>
-<p style="color: green"><%= notice %></p>
+
 
 <h1>Articles</h1>
 <%= link_to "New article", new_article_path %>
 
-<div id="articles">
-  <% @articles.each do |article| %>
-    <div>v
+<% @articles.each do |article| %>
+  <% if article.present? %>
+    <div>
       <h2><%= article.title %></h2>
-      <% article.photos.each do |photo| %>
-        <%= cl_image_tag photo.key, width: 400, height: 300, crop: :fill %>
+      <% if article.photo.attached? %>
+        <%= image_tag(url_for(article.photo), size: "150x150") %>
       <% end %>
       <p>
         <%= link_to "Show this article", article %>
       </p>
     </div>
   <% end %>
-</div>
+<% end %>

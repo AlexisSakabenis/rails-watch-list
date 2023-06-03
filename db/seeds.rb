@@ -1,3 +1,4 @@
+require 'open-uri'
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -9,9 +10,25 @@ Bookmark.destroy_all
 List.destroy_all
 Movie.destroy_all
 
-Movie.create(title: "Wonder Woman 1984", overview: "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s", poster_url: "https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg", rating: 6.9)
-Movie.create(title: "The Shawshank Redemption", overview: "Framed in the 1940s for double murder, upstanding banker Andy Dufresne begins a new life at the Shawshank prison", poster_url: "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", rating: 8.7)
-Movie.create(title: "Titanic", overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic.", poster_url: "https://image.tmdb.org/t/p/original/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg", rating: 7.9)
-Movie.create(title: "Ocean's Eight", overview: "Debbie Ocean, a criminal mastermind, gathers a crew of female thieves to pull off the heist of the century.", poster_url: "https://image.tmdb.org/t/p/original/MvYpKlpFukTivnlBhizGbkAe3v.jpg", rating: 7.0)
+Tmdb::Api.key('abd0a274114221f5307debf86cf3e0fe')
+response = Tmdb::Movie.popular
+movies = response.results.take(10) # Prend les 10 premiers films
+
+movies.each do |movie|
+  title = movie.title
+  poster_path = movie.poster_path
+  article = Article.new(title: title)
+
+  # Open image in binary mode
+  image_url = "https://image.tmdb.org/t/p/original#{poster_path}"
+  image = URI.open(image_url)
+
+  # Check if the image is not nil and only then attach it
+  if image.present?
+    article.photo.attach(io: image, filename: "#{title.parameterize}.jpg", content_type: 'image/jpg')
+    article.save!
+  end
+end
+
 
 puts 'Seed completed successfully!'

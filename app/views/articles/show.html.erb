@@ -1,6 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @article %>
+<div>
+  <% if @article.photo.attached? %>
+    <%= image_tag(@article.photo, size: "150x150") %>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Edit this article", edit_article_path(@article) %> |

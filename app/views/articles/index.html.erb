@@ -8,6 +8,12 @@
     <p>
       <%= link_to "Show this article", article %>
     </p>
+
+    <!-- Utilisation de cl_image_tag pour afficher une image -->
+    <%= cl_image_tag("nfvja9im00a2afstujjg", width: 400, height: 300, crop: :fill) %>
+
+    <!-- Utilisation de cl_image_tag pour afficher une autre image -->
+    <%= cl_image_tag("kdv4lhuoqjdnhmu5fu61", width: 150, height: 150, crop: :thumb, gravity: :face) %>
   <% end %>
 </div>
 

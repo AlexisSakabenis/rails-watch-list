@@ -12,5 +12,14 @@
   <%= form.text_field :comment, placeholder: 'Comment' %>
   <%= form.submit 'Bookmark' %>
 <% end %>
+<div>
+  <%= image_tag @list.image.variant(resize: "400x400") if @list.image.attached? %>
+  <h2><%= @list.name %></h2>
+</div>
+
+<h3>Films dans cette liste :</h3>
+<% @list.movies.each do |movie| %>
+  <!-- afficher les informations du film ici -->
+<% end %>
 <ul>
 <%= render partial: 'formdeletebookmark', locals: { list: @list } %>

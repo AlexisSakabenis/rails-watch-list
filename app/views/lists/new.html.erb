@@ -1,2 +1,7 @@
 <h1>Create a new list</h1>
 <%= render 'form' %>
+<%= simple_form_for(@list, html: { multipart: true }) do |f| %>
+  <!-- ... autres champs du formulaire ... -->
+  <%= f.input :image, as: :file %>
+  <%= f.button :submit %>
+<% end %>

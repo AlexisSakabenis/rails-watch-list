@@ -32,3 +32,8 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+cloudinary:
+  service: Cloudinary
+  cloud_name: <%= ENV['dsosiwgld'] %>
+  api_key: <%= ENV['417339232914929'] %>
+  api_secret: <%= ENV['59-wejMGMWAT0fd-W5XAOarfnnk'] %>

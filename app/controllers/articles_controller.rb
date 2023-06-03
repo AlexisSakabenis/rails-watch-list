@@ -23,6 +23,11 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
 
+
+    if params[:article][:photo].present?
+      @article.photos.attach(params[:article][:photos])
+    end
+
     respond_to do |format|
       if @article.save
         format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
@@ -58,13 +63,14 @@ class ArticlesController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params[:id])
-    end
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def article_params
-      params.require(:article).permit(:title, :body)
-    end
+  def article_params
+    params.require(:article).permit(:title, :body, photos: [])
+  end
 end
